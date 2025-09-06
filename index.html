@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kitty Clicker</title>
+
+  <style>
+    body{
+  background-color:#153;
+    display: flex;
+  justify-content: center;
+}
+
+.kittyButton{
+  background-color: transparent;
+  border: none;
+  transition: 0.1s;
+}
+
+.kittyButton:active{
+  transform: scale(0.95);
+}
+
+.kittyCounter{
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  color: whitesmoke;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin-top: 3px;
+  transition: 0.2ms;
+}
+
+.kittyCounter:hover{
+  color: rgb(222, 192, 61);
+}
+
+.shopButton{
+  position: absolute;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  text-align: center;
+  width: 100px;
+  height: 50px;
+  margin: auto;
+  margin-left: -80%;
+  background-color: rgb(54, 229, 239);
+  transition: 0.2s
+}
+
+.shopButton:active{
+  transform: scale(0.95);
+}
+
+.shopButton2{
+  position: absolute;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12 px;
+  text-align: center;
+  margin: auto;
+  margin-left: -80%;
+  width: 100px;
+  height: 50px;
+  margin-top: 10%;
+  background-color: rgb(54, 229, 239);
+  transition: 0.2s
+}
+
+.shopButton2:active{
+  transform: scale(0.95);
+}
+
+.resetButton{
+  position: absolute;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  text-align: center;
+  margin: auto;
+  margin-right: -70%;
+  background-color: rgb(239, 54, 54);
+  font-weight: 900;
+  color: white;
+  transition: 0.2s
+}
+
+.resetButton:active{
+  transform: scale(0.95);
+}
+
+
+  </style>
+
+  
+</head>
+<body>
+  <button class="kittyButton" onclick="DoKitty()"> <img src="https://i.imgur.com/9L5kKAO.png" alt="" id="kittyButtonImage" width="250px%"></button>
+<h1 class="kittyCounter" onmouseenter="ShowKpC()" onmouseleave="HideKpC()" id="kittyCounter">KITTIES: 0</h1>
+
+<button id="resetButton" onclick="ResetProgress()" class="resetButton">RESET PROGRESS</button>
+
+
+
+<button id="kpcButton" onclick="UpgradeKPC()" class="shopButton">+1 KpC (100 Kitties)</button>
+<button id="kpcButtonBig" onclick="UpgradeKPCLarge()" class="shopButton2">+10 KpC (1000 Kitties)</button>
+
+
+
+  <script>
+    var kitties = 1999;
+var kittyPerClick = 1;
+
+function getRandomIntInRange(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function UpdateKitty()
+{
+
+  document.getElementById("kittyButtonImage").src = "https://i.imgur.com/9L5kKAO.png";
+
+  if(kitties >= 1000)
+  {
+    document.getElementById("kittyButtonImage").src = "https://i.imgur.com/24t1tW3.png";
+  }
+  if(kitties >= 2000)
+  {
+    document.getElementById("kittyButtonImage").src = "https://i.imgur.com/fwcdqiE.png";
+  }
+  if(kitties >= 5000)
+  {
+    document.getElementById("kittyButtonImage").src = "https://i.imgur.com/xgbei9a.png";
+  }
+  if(kitties >= 10000)
+  {
+    document.getElementById("kittyButtonImage").src = "https://i.imgur.com/SJSTEgJ.png";
+  }
+
+}
+function OnLoad()
+{
+  kitties = parseInt(localStorage.kitties)
+  console.log(typeof(kitties))
+  kittyPerClick = parseInt(localStorage.kpc)
+  document.getElementById("kittyCounter").innerHTML = "KITTIES: " + kitties;
+  UpdateKitty();
+}
+
+document.body.onload = OnLoad()
+
+function DoKitty(){
+  kitties = parseInt(kitties) + parseInt(kittyPerClick);
+  document.getElementById("kittyCounter").innerHTML = "KITTIES: " + kitties;
+  var meow = new Audio('https://www.myinstants.com/media/sounds/meow_jEHtSyd.mp3');
+  meow.playbackRate = Math.abs(Math.random())
+  meow.preservesPitch = false
+  meow.play();
+  localStorage.setItem("kitties", kitties);
+  localStorage.setItem("kpc", kittyPerClick);
+
+  UpdateKitty();
+}
+
+function UpgradeKPC(){
+  if(kitties >= 100)
+  {
+    kitties = kitties - 100;
+    kittyPerClick = kittyPerClick + 1;
+  }
+  document.getElementById("kittyCounter").innerHTML = "KITTIES: " +kitties;
+  UpdateKitty();
+}
+
+function UpgradeKPCLarge(){
+  if(kitties >= 1000)
+  {
+    kitties = kitties - 1000;
+    kittyPerClick = kittyPerClick + 10;
+  }
+  document.getElementById("kittyCounter").innerHTML = "KITTIES: " +kitties;
+  UpdateKitty();
+}
+
+function ShowKpC()
+{
+  document.getElementById("kittyCounter").innerHTML = "KpC: " + kittyPerClick;
+}
+
+function HideKpC()
+{
+    document.getElementById("kittyCounter").innerHTML = "KITTIES: " + kitties;
+}
+
+var resetClickedOnce = false;
+function ResetProgress()
+{
+  if(resetClickedOnce)
+  {
+    localStorage.setItem("kitties", 0);
+    localStorage.setItem("kpc", 1);
+    kitties = 0;
+    kittyPerClick = 1;
+    document.getElementById("resetButton").innerHTML = "RESET PROGRESS";
+    document.getElementById("kittyCounter").innerHTML = "KITTIES: " + kitties;
+    resetClickedOnce = false;
+  }
+  else
+  {
+    document.getElementById("resetButton").innerHTML = "ARE YOU SURE?";
+    resetClickedOnce = true;
+  }
+  UpdateKitty();
+}
+  </script>
+</body>
+</html>
