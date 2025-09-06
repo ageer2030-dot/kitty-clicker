@@ -90,13 +90,18 @@
   transform: scale(0.95);
 }
 
+.resetButton:hover{
+  background-color: red;
+  transform: scale(1.05);
+}
+
 
   </style>
 
   
 </head>
 <body>
-  <button class="kittyButton" onclick="DoKitty()"> <img src="https://i.imgur.com/9L5kKAO.png" alt="" id="kittyButtonImage" width="250px%"></button>
+  <button class="kittyButton" onclick="DoKitty()" > <img src="https://i.imgur.com/9L5kKAO.png" alt="" id="kittyButtonImage" width="250px%"></button>
 <h1 class="kittyCounter" onmouseenter="ShowKpC()" onmouseleave="HideKpC()" id="kittyCounter">KITTIES: 0</h1>
 
 <button id="resetButton" onclick="ResetProgress()" class="resetButton">RESET PROGRESS</button>
@@ -116,6 +121,13 @@ function getRandomIntInRange(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function SaveData()
+{
+  localStorage.setItem("kitties", kitties);
+  localStorage.setItem("kpc", kittyPerClick);
+  UpdateKitty();
 }
 
 function UpdateKitty()
@@ -161,7 +173,7 @@ function DoKitty(){
   meow.play();
   localStorage.setItem("kitties", kitties);
   localStorage.setItem("kpc", kittyPerClick);
-
+  SaveData();
   UpdateKitty();
 }
 
@@ -172,7 +184,10 @@ function UpgradeKPC(){
     kittyPerClick = kittyPerClick + 1;
   }
   document.getElementById("kittyCounter").innerHTML = "KITTIES: " +kitties;
+  SaveData();
   UpdateKitty();
+  var cash = new Audio('https://www.myinstants.com/media/sounds/audiojoiner120623175716.mp3');
+  cash.play();
 }
 
 function UpgradeKPCLarge(){
@@ -182,7 +197,10 @@ function UpgradeKPCLarge(){
     kittyPerClick = kittyPerClick + 10;
   }
   document.getElementById("kittyCounter").innerHTML = "KITTIES: " +kitties;
+  SaveData();
   UpdateKitty();
+  var cash = new Audio('https://www.myinstants.com/media/sounds/cash-register-sound-fx.mp3');
+  cash.play();
 }
 
 function ShowKpC()
@@ -215,6 +233,13 @@ function ResetProgress()
   }
   UpdateKitty();
 }
+
+$(document).keypress(
+  function(event){
+    if (event.which == '13') {
+      event.preventDefault();
+    }
+});
   </script>
 </body>
 </html>
