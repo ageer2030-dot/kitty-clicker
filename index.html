@@ -160,6 +160,11 @@ function OnLoad()
   kittyPerClick = parseInt(localStorage.kpc)
   document.getElementById("kittyCounter").innerHTML = "KITTIES: " + kitties;
   UpdateKitty();
+
+  if(document.getElementById("kittyCounter").innerHTML == "NaN")
+  {
+    alert("Please press [RESET PROGRESS]")
+  }
 }
 
 document.body.onload = OnLoad()
@@ -171,6 +176,7 @@ function DoKitty(){
   meow.playbackRate = Math.abs(Math.random())
   meow.preservesPitch = false
   meow.play();
+
   localStorage.setItem("kitties", kitties);
   localStorage.setItem("kpc", kittyPerClick);
   SaveData();
