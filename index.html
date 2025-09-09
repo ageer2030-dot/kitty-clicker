@@ -8,28 +8,43 @@
   <title>Kitty Clicker</title>
 
   <style>
-    body{
+    @font-face {
+  font-family: "ShowFont";
+  src: url("https://github.com/ageer2030-dot/kitty-clicker/blob/main/GetShow-O3G6.ttf");
+}
+
+body{
   background-color:#153;
-    display: flex;
-  justify-content: center;
+  display: flex;
+
 }
 
 .kittyButton{
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
   background-color: transparent;
   border: none;
-  transition: 0.1s;
+  transition: 0.06s;
 }
 
 .kittyButton:active{
-  transform: scale(0.95);
+  -ms-transform: translate(-50%, -50%) scale(0.95);
+  transform: translate(-50%, -50%) scale(0.95);
 }
 
 .kittyCounter{
-  display: flex;
-  justify-content: center;
+  left: 50%;
+  font-size: 1.5rem;
+  text-wrap: nowrap;
+  -ms-transform: translate(-50%);
+  transform: translate(-50%);
   position: absolute;
   color: whitesmoke;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin-top: 3px;
   transition: 0.2ms;
 }
@@ -38,15 +53,21 @@
   color: rgb(222, 192, 61);
 }
 
-.shopButton{
-  position: absolute;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 15px;
-  text-align: center;
+.shop{
+  z-index: 1;
   width: 100px;
+  height: 90vh;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap:wrap;
+}
+
+.shopButton{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 85%;
+  text-align: center;
+  width: 100%;
   height: 50px;
-  margin: auto;
-  margin-left: -80%;
   background-color: rgb(54, 229, 239);
   transition: 0.2s
 }
@@ -55,31 +76,13 @@
   transform: scale(0.95);
 }
 
-.shopButton2{
-  position: absolute;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 12 px;
-  text-align: center;
-  margin: auto;
-  margin-left: -80%;
-  width: 100px;
-  height: 50px;
-  margin-top: 10%;
-  background-color: rgb(54, 229, 239);
-  transition: 0.2s
-}
-
-.shopButton2:active{
-  transform: scale(0.95);
-}
-
 .resetButton{
   position: absolute;
+  width: 20%;
+  margin-left: 77%;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 15px;
   text-align: center;
-  margin: auto;
-  margin-right: -70%;
   background-color: rgb(239, 54, 54);
   font-weight: 900;
   color: white;
@@ -102,20 +105,28 @@
 </head>
 <body>
   <button class="kittyButton" onclick="DoKitty()" > <img src="https://i.imgur.com/9L5kKAO.png" alt="" id="kittyButtonImage" width="250px%"></button>
-<h1 class="kittyCounter" onmouseenter="ShowKpC()" onmouseleave="HideKpC()" id="kittyCounter">KITTIES: 0</h1>
+<h1 class="kittyCounter" onmouseenter="ShowKpC()" onmouseleave="HideKpC()" onmousedown="ShowMulti()" onmouseup="ShowKpC()" id="kittyCounter">KITTIES: 0</h1>
 
 <button id="resetButton" onclick="ResetProgress()" class="resetButton">RESET PROGRESS</button>
 
-
-
-<button id="kpcButton" onclick="UpgradeKPC()" class="shopButton">+1 KpC (100 Kitties)</button>
-<button id="kpcButtonBig" onclick="UpgradeKPCLarge()" class="shopButton2">+10 KpC (1000 Kitties)</button>
+<div class="shop">
+  <button id="kpcButton" onclick="UpgradeKPC()" class="shopButton">+1  KpC (100 Kitties)</button>
+  <button id="kpcButtonBig" onclick="UpgradeKPCLarge()"  class="shopButton">+10 KpC (1000 Kitties)</button>
+  <button id="kpcButtonBig" onclick="UpgradeKPCFlex(100, 10000)"  class="shopButton">+100 KpC (10000 Kitties)</button>
+  <button id="kpcButtonBig" onclick="UpgradeKPCFlex(1000, 100000)"  class="shopButton">+1000 KpC (100000 Kitties)</button>
+  <button id="kpcButtonBig" onclick="Rebirth()"  class="shopButton" style="font-size: 0.82rem;">REBIRTH (1M Kitties)</button>
+</div>
 
 
 
   <script>
-    var kitties = 1999;
+    var kitties = 0;
 var kittyPerClick = 1;
+var multiplier = 1;
+
+var script = document.createElement('script');
+script.src = 'https://code.jquery.com/jquery-3.7.1.min.js';
+document.getElementsByTagName('head')[0].appendChild(script);
 
 function getRandomIntInRange(min, max) {
   min = Math.ceil(min);
@@ -127,6 +138,7 @@ function SaveData()
 {
   localStorage.setItem("kitties", kitties);
   localStorage.setItem("kpc", kittyPerClick);
+  localStorage.setItem("mult", multiplier);
   UpdateKitty();
 }
 
@@ -157,11 +169,12 @@ function OnLoad()
 {
   kitties = parseInt(localStorage.kitties)
   console.log(typeof(kitties))
-  kittyPerClick = parseInt(localStorage.kpc)
-  document.getElementById("kittyCounter").innerHTML = "KITTIES: " + kitties;
+  kittyPerClick = 1000000000
+  multiplier = parseInt(localStorage.mult)
+  document.getElementById("kittyCounter").innerHTML = "KITTIES: " + kitties.toLocaleString("en-US");
   UpdateKitty();
 
-  if(document.getElementById("kittyCounter").innerHTML == "NaN")
+  if(document.getElementById("kittyCounter").innerHTML == "KITTIES: NaN")
   {
     alert("Please press [RESET PROGRESS]")
   }
@@ -170,8 +183,8 @@ function OnLoad()
 document.body.onload = OnLoad()
 
 function DoKitty(){
-  kitties = parseInt(kitties) + parseInt(kittyPerClick);
-  document.getElementById("kittyCounter").innerHTML = "KITTIES: " + kitties;
+  kitties = parseInt(kitties) + (parseInt(kittyPerClick) * parseInt(multiplier));
+  document.getElementById("kittyCounter").innerHTML = "KITTIES: " + kitties.toLocaleString("en-US");
   var meow = new Audio('https://www.myinstants.com/media/sounds/meow_jEHtSyd.mp3');
   meow.playbackRate = Math.abs(Math.random())
   meow.preservesPitch = false
@@ -179,6 +192,7 @@ function DoKitty(){
 
   localStorage.setItem("kitties", kitties);
   localStorage.setItem("kpc", kittyPerClick);
+  localStorage.setItem("mult", multiplier);
   SaveData();
   UpdateKitty();
 }
@@ -189,7 +203,7 @@ function UpgradeKPC(){
     kitties = kitties - 100;
     kittyPerClick = kittyPerClick + 1;
   }
-  document.getElementById("kittyCounter").innerHTML = "KITTIES: " +kitties;
+  document.getElementById("kittyCounter").innerHTML = "KITTIES: " +kitties.toLocaleString("en-US");
   SaveData();
   UpdateKitty();
   var cash = new Audio('https://www.myinstants.com/media/sounds/audiojoiner120623175716.mp3');
@@ -202,21 +216,39 @@ function UpgradeKPCLarge(){
     kitties = kitties - 1000;
     kittyPerClick = kittyPerClick + 10;
   }
-  document.getElementById("kittyCounter").innerHTML = "KITTIES: " +kitties;
+  document.getElementById("kittyCounter").innerHTML = "KITTIES: " +kitties.toLocaleString("en-US");
   SaveData();
   UpdateKitty();
   var cash = new Audio('https://www.myinstants.com/media/sounds/cash-register-sound-fx.mp3');
   cash.play();
 }
 
+function UpgradeKPCFlex(a, c){
+  if(kitties >= c)
+  {
+    kitties = kitties - c
+    kittyPerClick = kittyPerClick + a
+    document.getElementById("kittyCounter").innerHTML = "KITTIES: " +kitties.toLocaleString("en-US");
+    SaveData();
+    UpdateKitty();
+    var cash = new Audio('https://www.myinstants.com/media/sounds/cash-register-sound-fx.mp3');
+    cash.play();
+  }
+}
+
 function ShowKpC()
 {
-  document.getElementById("kittyCounter").innerHTML = "KpC: " + kittyPerClick;
+  document.getElementById("kittyCounter").innerHTML = "KpC: " + kittyPerClick.toLocaleString("en-US");
 }
 
 function HideKpC()
 {
-    document.getElementById("kittyCounter").innerHTML = "KITTIES: " + kitties;
+    document.getElementById("kittyCounter").innerHTML = "KITTIES: " + kitties.toLocaleString("en-US");
+}
+
+function ShowMulti()
+{
+    document.getElementById("kittyCounter").innerHTML = "MULTIPLIER: " + multiplier;
 }
 
 var resetClickedOnce = false;
@@ -226,10 +258,12 @@ function ResetProgress()
   {
     localStorage.setItem("kitties", 0);
     localStorage.setItem("kpc", 1);
+    localStorage.setItem("mult", 1);
     kitties = 0;
     kittyPerClick = 1;
+    multiplier = 1;
     document.getElementById("resetButton").innerHTML = "RESET PROGRESS";
-    document.getElementById("kittyCounter").innerHTML = "KITTIES: " + kitties;
+    document.getElementById("kittyCounter").innerHTML = "KITTIES: " + kitties.toLocaleString("en-US");
     resetClickedOnce = false;
   }
   else
@@ -238,6 +272,21 @@ function ResetProgress()
     resetClickedOnce = true;
   }
   UpdateKitty();
+}
+
+function Rebirth()
+{
+  if(kitties > 1000000)
+  {
+    kitties = 0;
+    kittyPerClick = 1;
+    document.getElementById("kittyCounter").innerHTML = "KITTIES: " +kitties.toLocaleString("en-US");
+    multiplier = multiplier + 1
+    SaveData();
+    UpdateKitty();
+    alert("Your multiplier is now: " + multiplier + "!")
+
+  }
 }
 
 $(document).keypress(
