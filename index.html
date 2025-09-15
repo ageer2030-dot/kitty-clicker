@@ -224,10 +224,6 @@ var multiplier = 1;
 var kittiesPerSecond = 0;
 var kpSSpeed = 1000;
 
-var script = document.createElement("script");
-script.src = "https://code.jquery.com/jquery-3.7.1.min.js";
-document.getElementsByTagName("head")[0].appendChild(script);
-
 function getRandomIntInRange(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -272,6 +268,9 @@ function UpdateKitty() {
   }
 }
 function OnLoad() {
+  var script = document.createElement("script");
+  script.src = "https://code.jquery.com/jquery-3.7.1.min.js";
+  document.getElementsByTagName("head")[0].appendChild(script);
   kitties = parseInt(localStorage.kitties);
   console.log(typeof kitties);
   multiplier = parseInt(localStorage.mult);
