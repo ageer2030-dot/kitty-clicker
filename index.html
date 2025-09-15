@@ -13,6 +13,10 @@
   src: url("https://github.com/ageer2030-dot/kitty-clicker/blob/main/GetShow-O3G6.ttf");
 }
 
+* {
+  touch-action: manipulation;
+}
+
 body {
   background-color: #153;
   display: flex;
@@ -280,6 +284,10 @@ function OnLoad() {
   if (document.getElementById("kittyCounter").innerHTML == "KITTIES: NaN") {
     alert("Please press [RESET PROGRESS]");
   }
+  $.get("https://raw.githubusercontent.com/ageer2030-dot/kitty-clicker/refs/heads/main/kc_welcome", function( data ) {
+  alert(data);
+
+});
 }
 
 document.body.onload = OnLoad();
@@ -394,6 +402,7 @@ function Rebirth() {
     document.getElementById("kittyCounter").innerHTML =
       "KITTIES: " + kitties.toLocaleString("en-US");
     multiplier = multiplier + 1;
+    document.getElementById("kpsCounter").innerHTML = "KpS: " + kittiesPerSecond;
     SaveData();
     UpdateKitty();
     alert("Your multiplier is now: " + multiplier + "!");
