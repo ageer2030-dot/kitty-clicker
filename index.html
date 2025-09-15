@@ -13,13 +13,12 @@
   src: url("https://github.com/ageer2030-dot/kitty-clicker/blob/main/GetShow-O3G6.ttf");
 }
 
-body{
-  background-color:#153;
+body {
+  background-color: #153;
   display: flex;
-
 }
 
-.kittyButton{
+.kittyButton {
   margin: 0;
   position: absolute;
   top: 50%;
@@ -29,14 +28,16 @@ body{
   background-color: transparent;
   border: none;
   transition: 0.06s;
+  filter: drop-shadow(0px 0px 5px #333);
 }
 
-.kittyButton:active{
+.kittyButton:active {
   -ms-transform: translate(-50%, -50%) scale(0.95);
   transform: translate(-50%, -50%) scale(0.95);
+  filter: drop-shadow(0px 0px 5px #e0cd12);
 }
 
-.kittyCounter{
+.kittyCounter {
   left: 50%;
   font-size: 1.5rem;
   text-wrap: nowrap;
@@ -44,39 +45,53 @@ body{
   transform: translate(-50%);
   position: absolute;
   color: whitesmoke;
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   margin-top: 3px;
   transition: 0.2ms;
 }
 
-.kittyCounter:hover{
+.kittyCounter2 {
+  left: 50%;
+  font-size: 1.5rem;
+  top: 2rem;
+  text-wrap: nowrap;
+  -ms-transform: translate(-50%);
+  transform: translate(-50%);
+  position: absolute;
+  color: whitesmoke;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin-top: 3px;
+  transition: 0.2ms;
+}
+
+.kittyCounter:hover {
   color: rgb(222, 192, 61);
 }
 
-.shop{
+.shop {
   z-index: 1;
   width: 100px;
   height: 90vh;
   display: flex;
   justify-content: space-between;
-  flex-wrap:wrap;
+  flex-wrap: wrap;
 }
 
-.shopButton{
+.shopButton {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 85%;
   text-align: center;
   width: 100%;
   height: 50px;
   background-color: rgb(54, 229, 239);
-  transition: 0.2s
+  transition: 0.2s;
 }
 
-.shopButton:active{
+.shopButton:active {
   transform: scale(0.95);
 }
 
-.resetButton{
+.resetButton {
   position: absolute;
   width: 20%;
   margin-left: 77%;
@@ -86,37 +101,115 @@ body{
   background-color: rgb(239, 54, 54);
   font-weight: 900;
   color: white;
-  transition: 0.2s
+  transition: 0.2s;
 }
 
-.resetButton:active{
+.resetButton:active {
   transform: scale(0.95);
 }
 
-.resetButton:hover{
+.resetButton:hover {
   background-color: red;
   transform: scale(1.05);
 }
-
-
   </style>
 
   
 </head>
 <body>
-  <button class="kittyButton" onclick="DoKitty()" > <img src="https://i.imgur.com/9L5kKAO.png" alt="" id="kittyButtonImage" width="250px%"></button>
-<h1 class="kittyCounter" onmouseenter="ShowKpC()" onmouseleave="HideKpC()" onmousedown="ShowMulti()" onmouseup="ShowKpC()" id="kittyCounter">KITTIES: 0</h1>
+  <button id="kittyButton" class="kittyButton" onclick="DoKitty()">
+  <img
+    src="https://i.imgur.com/9L5kKAO.png"
+    alt=""
+    id="kittyButtonImage"
+    width="250px%"
+  />
+</button>
+<h1
+  class="kittyCounter"
+  onmouseenter="ShowKpC()"
+  onmouseleave="HideKpC()"
+  onmousedown="ShowMulti()"
+  onmouseup="ShowKpC()"
+  id="kittyCounter"
+>
+  KITTIES: 0
+</h1>
 
-<button id="resetButton" onclick="ResetProgress()" class="resetButton">RESET PROGRESS</button>
+<h1 class="kittyCounter2" id="kpsCounter">KpS: 0</h1>
+
+<button id="resetButton" onclick="ResetProgress()" class="resetButton">
+  RESET PROGRESS
+</button>
 
 <div class="shop">
-  <button id="kpcButton" onclick="UpgradeKPC()" class="shopButton">+1  KpC (100 Kitties)</button>
-  <button id="kpcButtonBig" onclick="UpgradeKPCLarge()"  class="shopButton">+10 KpC (1000 Kitties)</button>
-  <button id="kpcButtonBig" onclick="UpgradeKPCFlex(100, 10000)"  class="shopButton">+100 KpC (10000 Kitties)</button>
-  <button id="kpcButtonBig" onclick="UpgradeKPCFlex(1000, 100000)"  class="shopButton">+1000 KpC (100000 Kitties)</button>
-  <button id="kpcButtonBig" onclick="Rebirth()"  class="shopButton" style="font-size: 0.82rem;">REBIRTH (1M Kitties)</button>
+  <button id="kpcButton" onclick="UpgradeKPC()" class="shopButton">
+    +1 KpC (100 Kitties)
+  </button>
+  <button id="kpcButtonBig" onclick="UpgradeKPCLarge()" class="shopButton">
+    +10 KpC (1000 Kitties)
+  </button>
+  <button
+    id="kpcButtonBig"
+    onclick="UpgradeKPCFlex(100, 10000)"
+    class="shopButton"
+  >
+    +100 KpC (10000 Kitties)
+  </button>
+  <button
+    id="kpcButtonBig"
+    onclick="UpgradeKPCFlex(1000, 100000)"
+    class="shopButton"
+  >
+    +1000 KpC (100000 Kitties)
+  </button>
+  <button
+    id="kpcButtonBig"
+    onclick="UpgradeKPCFlex(10000, 1000000)"
+    class="shopButton"
+  >
+    +10000 KpC (1000000 Kitties)
+  </button>
+
+  <button
+    id="kpcButtonBig"
+    onclick="UpgradeKpSFlex(1,1000)"
+    class="shopButton"
+    style="font-size: 0.82rem;"
+  >
+    +1 KpS (1000 Kitties)
+  </button>
+
+  <button
+    id="kpcButtonBig"
+    onclick="UpgradeKpSFlex(10,10000)"
+    class="shopButton"
+    style="font-size: 0.82rem;"
+  >
+    +10 KpS (10000 Kitties)
+  </button>
+
+  <button
+    id="kpcButtonBig"
+    onclick="Rebirth()"
+    class="shopButton"
+    style="font-size: 0.82rem;"
+  >
+    REBIRTH (1M Kitties)
+  </button>
 </div>
 
+<script type="text/javascript">
+  window.addEventListener('keydown',function(e) {
+      if (e.keyIdentifier=='U+000A' || e.keyIdentifier=='Enter' || e.keyCode==13) {
+          if (e.target.id=='kittyButton') {
+              e.preventDefault();
+
+              return false;
+          }
+      }
+  }, true);
+</script>
 
 
   <script>
@@ -124,9 +217,12 @@ body{
 var kittyPerClick = 1;
 var multiplier = 1;
 
-var script = document.createElement('script');
-script.src = 'https://code.jquery.com/jquery-3.7.1.min.js';
-document.getElementsByTagName('head')[0].appendChild(script);
+var kittiesPerSecond = 0;
+var kpSSpeed = 1000;
+
+var script = document.createElement("script");
+script.src = "https://code.jquery.com/jquery-3.7.1.min.js";
+document.getElementsByTagName("head")[0].appendChild(script);
 
 function getRandomIntInRange(min, max) {
   min = Math.ceil(min);
@@ -134,167 +230,198 @@ function getRandomIntInRange(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function SaveData()
-{
+function SaveData() {
   localStorage.setItem("kitties", kitties);
   localStorage.setItem("kpc", kittyPerClick);
   localStorage.setItem("mult", multiplier);
+  localStorage.setItem("kps", kittiesPerSecond);
   UpdateKitty();
 }
 
-function UpdateKitty()
-{
+function UpdateKitty() {
+  document.getElementById("kittyButtonImage").src =
+    "https://i.imgur.com/9L5kKAO.png";
 
-  document.getElementById("kittyButtonImage").src = "https://i.imgur.com/9L5kKAO.png";
-
-  if(kitties >= 1000)
-  {
-    document.getElementById("kittyButtonImage").src = "https://i.imgur.com/24t1tW3.png";
+  if (kitties >= 1000) {
+    document.getElementById("kittyButtonImage").src =
+      "https://i.imgur.com/24t1tW3.png";
   }
-  if(kitties >= 2000)
-  {
-    document.getElementById("kittyButtonImage").src = "https://i.imgur.com/fwcdqiE.png";
+  if (kitties >= 2000) {
+    document.getElementById("kittyButtonImage").src =
+      "https://i.imgur.com/fwcdqiE.png";
   }
-  if(kitties >= 5000)
-  {
-    document.getElementById("kittyButtonImage").src = "https://i.imgur.com/xgbei9a.png";
+  if (kitties >= 5000) {
+    document.getElementById("kittyButtonImage").src =
+      "https://i.imgur.com/xgbei9a.png";
   }
-  if(kitties >= 10000)
-  {
-    document.getElementById("kittyButtonImage").src = "https://i.imgur.com/SJSTEgJ.png";
+  if (kitties >= 10000) {
+    document.getElementById("kittyButtonImage").src =
+      "https://i.imgur.com/SJSTEgJ.png";
   }
-
+  if (kitties >= 50000) {
+    document.getElementById("kittyButtonImage").src =
+      "https://i.imgur.com/ZL04YPJ.png";
+  }
+  if (kitties >= 100000) {
+    document.getElementById("kittyButtonImage").src =
+      "https://i.imgur.com/pHW0Slj.png";
+  }
 }
-function OnLoad()
-{
-  kitties = parseInt(localStorage.kitties)
-  console.log(typeof(kitties))
-  kittyPerClick = 1000000000
-  multiplier = parseInt(localStorage.mult)
-  document.getElementById("kittyCounter").innerHTML = "KITTIES: " + kitties.toLocaleString("en-US");
+function OnLoad() {
+  kitties = parseInt(localStorage.kitties);
+  console.log(typeof kitties);
+  multiplier = parseInt(localStorage.mult);
+  kittyPerClick = parseInt(localStorage.kpc);
+  kittiesPerSecond = parseInt(localStorage.kps)
+  document.getElementById("kittyCounter").innerHTML =
+  "KITTIES: " + kitties.toLocaleString("en-US");
   UpdateKitty();
-
-  if(document.getElementById("kittyCounter").innerHTML == "KITTIES: NaN")
-  {
-    alert("Please press [RESET PROGRESS]")
+  document.getElementById("kpsCounter").innerHTML = "KpS: " + kittiesPerSecond;
+  if (document.getElementById("kittyCounter").innerHTML == "KITTIES: NaN") {
+    alert("Please press [RESET PROGRESS]");
   }
 }
 
-document.body.onload = OnLoad()
+document.body.onload = OnLoad();
 
-function DoKitty(){
-  kitties = parseInt(kitties) + (parseInt(kittyPerClick) * parseInt(multiplier));
-  document.getElementById("kittyCounter").innerHTML = "KITTIES: " + kitties.toLocaleString("en-US");
-  var meow = new Audio('https://www.myinstants.com/media/sounds/meow_jEHtSyd.mp3');
-  meow.playbackRate = Math.abs(Math.random())
-  meow.preservesPitch = false
+function DoKitty() {
+  kitties = parseInt(kitties) + parseInt(kittyPerClick) * parseInt(multiplier);
+  document.getElementById("kittyCounter").innerHTML =
+    "KITTIES: " + kitties.toLocaleString("en-US");
+  var meow = new Audio(
+    "https://www.myinstants.com/media/sounds/meow_jEHtSyd.mp3",
+  );
+  meow.playbackRate = Math.abs(Math.random());
+  meow.preservesPitch = false;
   meow.play();
 
   localStorage.setItem("kitties", kitties);
   localStorage.setItem("kpc", kittyPerClick);
   localStorage.setItem("mult", multiplier);
+  localStorage.setItem("kps", kittiesPerSecond)
   SaveData();
   UpdateKitty();
 }
 
-function UpgradeKPC(){
-  if(kitties >= 100)
-  {
+function UpgradeKPC() {
+  if (kitties >= 100) {
     kitties = kitties - 100;
     kittyPerClick = kittyPerClick + 1;
   }
-  document.getElementById("kittyCounter").innerHTML = "KITTIES: " +kitties.toLocaleString("en-US");
+  document.getElementById("kittyCounter").innerHTML =
+    "KITTIES: " + kitties.toLocaleString("en-US");
   SaveData();
   UpdateKitty();
-  var cash = new Audio('https://www.myinstants.com/media/sounds/audiojoiner120623175716.mp3');
+  var cash = new Audio(
+    "https://www.myinstants.com/media/sounds/audiojoiner120623175716.mp3",
+  );
   cash.play();
 }
 
-function UpgradeKPCLarge(){
-  if(kitties >= 1000)
-  {
+function UpgradeKPCLarge() {
+  if (kitties >= 1000) {
     kitties = kitties - 1000;
     kittyPerClick = kittyPerClick + 10;
   }
-  document.getElementById("kittyCounter").innerHTML = "KITTIES: " +kitties.toLocaleString("en-US");
+  document.getElementById("kittyCounter").innerHTML =
+    "KITTIES: " + kitties.toLocaleString("en-US");
   SaveData();
   UpdateKitty();
-  var cash = new Audio('https://www.myinstants.com/media/sounds/cash-register-sound-fx.mp3');
+  var cash = new Audio(
+    "https://www.myinstants.com/media/sounds/cash-register-sound-fx.mp3",
+  );
   cash.play();
 }
 
-function UpgradeKPCFlex(a, c){
-  if(kitties >= c)
-  {
-    kitties = kitties - c
-    kittyPerClick = kittyPerClick + a
-    document.getElementById("kittyCounter").innerHTML = "KITTIES: " +kitties.toLocaleString("en-US");
+function UpgradeKPCFlex(a, c) {
+  if (kitties >= c) {
+    kitties = kitties - c;
+    kittyPerClick = kittyPerClick + a;
+    document.getElementById("kittyCounter").innerHTML =
+      "KITTIES: " + kitties.toLocaleString("en-US");
     SaveData();
     UpdateKitty();
-    var cash = new Audio('https://www.myinstants.com/media/sounds/cash-register-sound-fx.mp3');
+    var cash = new Audio(
+      "https://www.myinstants.com/media/sounds/cash-register-sound-fx.mp3",
+    );
     cash.play();
   }
 }
 
-function ShowKpC()
-{
-  document.getElementById("kittyCounter").innerHTML = "KpC: " + kittyPerClick.toLocaleString("en-US");
+function ShowKpC() {
+  document.getElementById("kittyCounter").innerHTML =
+    "KpC: " + kittyPerClick.toLocaleString("en-US");
 }
 
-function HideKpC()
-{
-    document.getElementById("kittyCounter").innerHTML = "KITTIES: " + kitties.toLocaleString("en-US");
+function HideKpC() {
+  document.getElementById("kittyCounter").innerHTML =
+    "KITTIES: " + kitties.toLocaleString("en-US");
 }
 
-function ShowMulti()
-{
-    document.getElementById("kittyCounter").innerHTML = "MULTIPLIER: " + multiplier;
+function ShowMulti() {
+  document.getElementById("kittyCounter").innerHTML =
+    "MULTIPLIER: " + multiplier;
 }
 
 var resetClickedOnce = false;
-function ResetProgress()
-{
-  if(resetClickedOnce)
-  {
+function ResetProgress() {
+  if (resetClickedOnce) {
     localStorage.setItem("kitties", 0);
     localStorage.setItem("kpc", 1);
     localStorage.setItem("mult", 1);
+    localStorage.setItem("kps", 0);
     kitties = 0;
     kittyPerClick = 1;
     multiplier = 1;
+    kittiesPerSecond = 0;
     document.getElementById("resetButton").innerHTML = "RESET PROGRESS";
-    document.getElementById("kittyCounter").innerHTML = "KITTIES: " + kitties.toLocaleString("en-US");
+    document.getElementById("kittyCounter").innerHTML =
+    "KITTIES: " + kitties.toLocaleString("en-US");
+    document.getElementById("kpsCounter").innerHTML = "KpS: " + kittiesPerSecond;
     resetClickedOnce = false;
-  }
-  else
-  {
+  } else {
     document.getElementById("resetButton").innerHTML = "ARE YOU SURE?";
     resetClickedOnce = true;
   }
   UpdateKitty();
 }
 
-function Rebirth()
-{
-  if(kitties > 1000000)
-  {
+function Rebirth() {
+  if (kitties > 1000000) {
     kitties = 0;
     kittyPerClick = 1;
-    document.getElementById("kittyCounter").innerHTML = "KITTIES: " +kitties.toLocaleString("en-US");
-    multiplier = multiplier + 1
+    kittiesPerSecond = 0;
+    document.getElementById("kittyCounter").innerHTML =
+      "KITTIES: " + kitties.toLocaleString("en-US");
+    multiplier = multiplier + 1;
     SaveData();
     UpdateKitty();
-    alert("Your multiplier is now: " + multiplier + "!")
-
+    alert("Your multiplier is now: " + multiplier + "!");
   }
 }
 
-$(document).keypress(
-  function(event){
-    if (event.which == '13') {
-      event.preventDefault();
-    }
-});
+function UpgradeKpSFlex(a,c){
+  if(kitties >= c){
+      kitties = kitties - c;
+      kittiesPerSecond = kittiesPerSecond + a
+      SaveData();
+      UpdateKitty();
+      var cash = new Audio(
+        "https://www.myinstants.com/media/sounds/cash-register-sound-fx.mp3",
+      );
+      cash.play();
+
+      document.getElementById("kpsCounter").innerHTML = "KpS: " + kittiesPerSecond;
+      
+  }
+}
+
+var DoKpS = setInterval(function(){
+  kitties = kitties + kittiesPerSecond
+  document.getElementById("kittyCounter").innerHTML =
+  "KITTIES: " + kitties.toLocaleString("en-US");
+}, kpSSpeed);
+
   </script>
 </body>
 </html>
