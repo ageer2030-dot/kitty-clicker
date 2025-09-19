@@ -8,7 +8,7 @@
   <title>Kitty Clicker</title>
 
   <style>
-    @font-face {
+    @font-face {  
   font-family: "ShowFont";
   src: url("https://github.com/ageer2030-dot/kitty-clicker/blob/main/GetShow-O3G6.ttf");
 }
@@ -18,7 +18,12 @@
 }
 
 body {
-  background-color: #153;
+  background: #1b5166;
+  background: linear-gradient(
+    90deg,
+    rgba(27, 81, 102, 1) 0%,
+    rgba(56, 138, 90, 1) 100%
+  );
   display: flex;
 }
 
@@ -116,6 +121,7 @@ body {
   background-color: red;
   transform: scale(1.05);
 }
+
   </style>
 
   
@@ -275,18 +281,20 @@ function OnLoad() {
   console.log(typeof kitties);
   multiplier = parseInt(localStorage.mult);
   kittyPerClick = parseInt(localStorage.kpc);
-  kittiesPerSecond = parseInt(localStorage.kps)
+  kittiesPerSecond = parseInt(localStorage.kps);
   document.getElementById("kittyCounter").innerHTML =
-  "KITTIES: " + kitties.toLocaleString("en-US");
+    "KITTIES: " + kitties.toLocaleString("en-US");
   UpdateKitty();
   document.getElementById("kpsCounter").innerHTML = "KpS: " + kittiesPerSecond;
   if (document.getElementById("kittyCounter").innerHTML == "KITTIES: NaN") {
-    alert("Please press [RESET PROGRESS]");
+    ResetProgress()
   }
-  $.get("https://raw.githubusercontent.com/ageer2030-dot/kitty-clicker/refs/heads/main/kc_welcome", function( data ) {
-  alert(data);
-
-});
+  $.get(
+    "https://raw.githubusercontent.com/ageer2030-dot/kitty-clicker/refs/heads/main/kc_welcome",
+    function (data) {
+      alert(data);
+    },
+  );
 }
 
 document.body.onload = OnLoad();
@@ -305,7 +313,7 @@ function DoKitty() {
   localStorage.setItem("kitties", kitties);
   localStorage.setItem("kpc", kittyPerClick);
   localStorage.setItem("mult", multiplier);
-  localStorage.setItem("kps", kittiesPerSecond)
+  localStorage.setItem("kps", kittiesPerSecond);
   SaveData();
   UpdateKitty();
 }
@@ -383,8 +391,9 @@ function ResetProgress() {
     kittiesPerSecond = 0;
     document.getElementById("resetButton").innerHTML = "RESET PROGRESS";
     document.getElementById("kittyCounter").innerHTML =
-    "KITTIES: " + kitties.toLocaleString("en-US");
-    document.getElementById("kpsCounter").innerHTML = "KpS: " + kittiesPerSecond;
+      "KITTIES: " + kitties.toLocaleString("en-US");
+    document.getElementById("kpsCounter").innerHTML =
+      "KpS: " + kittiesPerSecond;
     resetClickedOnce = false;
   } else {
     document.getElementById("resetButton").innerHTML = "ARE YOU SURE?";
@@ -401,33 +410,36 @@ function Rebirth() {
     document.getElementById("kittyCounter").innerHTML =
       "KITTIES: " + kitties.toLocaleString("en-US");
     multiplier = multiplier + 1;
-    document.getElementById("kpsCounter").innerHTML = "KpS: " + kittiesPerSecond;
+    document.getElementById("kpsCounter").innerHTML =
+      "KpS: " + kittiesPerSecond;
     SaveData();
     UpdateKitty();
     alert("Your multiplier is now: " + multiplier + "!");
   }
 }
 
-function UpgradeKpSFlex(a,c){
-  if(kitties >= c){
-      kitties = kitties - c;
-      kittiesPerSecond = kittiesPerSecond + a
-      SaveData();
-      UpdateKitty();
-      var cash = new Audio(
-        "https://www.myinstants.com/media/sounds/cash-register-sound-fx.mp3",
-      );
-      cash.play();
+function UpgradeKpSFlex(a, c) {
+  if (kitties >= c) {
+    kitties = kitties - c;
+    kittiesPerSecond = kittiesPerSecond + a;
+    SaveData();
+    UpdateKitty();
+    var cash = new Audio(
+      "https://www.myinstants.com/media/sounds/cash-register-sound-fx.mp3",
+    );
+    cash.play();
 
-      document.getElementById("kpsCounter").innerHTML = "KpS: " + kittiesPerSecond;
-      
+    document.getElementById("kpsCounter").innerHTML =
+      "KpS: " + kittiesPerSecond;
   }
 }
 
-var DoKpS = setInterval(function(){
-  kitties = kitties + kittiesPerSecond
-  document.getElementById("kittyCounter").innerHTML =
-  "KITTIES: " + kitties.toLocaleString("en-US");
+var DoKpS = setInterval(function () {
+  kitties = kitties + kittiesPerSecond;
+  if(kittiesPerSecond > 0){
+    document.getElementById("kittyCounter").innerHTML =
+    "KITTIES: " + kitties.toLocaleString("en-US");
+  }
 }, kpSSpeed);
 
   </script>
